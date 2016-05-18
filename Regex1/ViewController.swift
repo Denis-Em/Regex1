@@ -20,7 +20,7 @@ class Regex {
     }
     
     func test(input: String) -> Bool {
-        let matches = self.internalExpression.matchesInString(input, options: [], range:NSMakeRange(0, input.characters.count))
+        let matches = self.internalExpression.matchesInString(input, options: [], range:NSMakeRange(0, input.length))
         return matches.count > 0
     }
 }
@@ -60,10 +60,19 @@ class ViewController: UIViewController {
         //var t1:String!
         if Regex("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}").test(saisie.text!) {
             NSLog("MATCH OK")
+            AlertOK("MATCH")
         }else{
+            AlertOK("NO MATCH")
             NSLog("NOK")
         }
 
+    }
+    
+    func AlertOK(msg:String){
+        let alertController = UIAlertController(title: "NOTE", message:msg , preferredStyle: .Alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertController.addAction(defaultAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
    
 }
